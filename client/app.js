@@ -2,13 +2,13 @@
 const backendBaseURL = "https://bengaluru-home-price-prediction-qe70.onrender.com";
 
 function getBathValue() {
-  var uiBathrooms = document.getElementsByName("uiBathrooms");  // 💡 make sure the name is correct here!
+  var uiBathrooms = document.getElementsByName("uiBathrooms");
   for (var i = 0; i < uiBathrooms.length; i++) {
     if (uiBathrooms[i].checked) {
       return parseInt(uiBathrooms[i].value);
     }
   }
-  return -1; // Invalid Value
+  return -1;
 }
 
 function getBHKValue() {
@@ -18,7 +18,7 @@ function getBHKValue() {
       return parseInt(uiBHK[i].value);
     }
   }
-  return -1; // Invalid Value
+  return -1;
 }
 
 function onClickedEstimatePrice() {
@@ -27,7 +27,7 @@ function onClickedEstimatePrice() {
   var bath = getBathValue();
   var location = document.getElementById("uiLocations").value;
 
-  var url = ${'backendBaseURL}/predict_home_price';
+  var url = `${backendBaseURL}/predict_home_price`;  // ✅ THIS FIXED
 
   $.ajax({
     url: url,
@@ -52,7 +52,7 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
   console.log("Document loaded");
-  var url = '${backendBaseURL}/get_location_name';
+  var url = `${backendBaseURL}/get_location_name`;  // ✅ THIS FIXED
 
   $.get(url, function (data, status) {
     console.log("Got response for get_location_name request");
@@ -69,7 +69,6 @@ function onPageLoad() {
   });
 }
 
-// ✅ Load everything once DOM is ready
 window.onload = function () {
   onPageLoad();
   document.getElementById("estimateBtn").addEventListener("click", onClickedEstimatePrice);

@@ -1,5 +1,8 @@
+// ✅ Replace this with your Render backend URL
+const backendBaseURL = "https://bengaluru-home-price-prediction-qe70.onrender.com";
+
 function getBathValue() {
-  var uiBathrooms = document.getElementsByName("uiBathroom");
+  var uiBathrooms = document.getElementsByName("uiBathrooms");  // 💡 make sure the name is correct here!
   for (var i = 0; i < uiBathrooms.length; i++) {
     if (uiBathrooms[i].checked) {
       return parseInt(uiBathrooms[i].value);
@@ -24,24 +27,24 @@ function onClickedEstimatePrice() {
   var bath = getBathValue();
   var location = document.getElementById("uiLocations").value;
 
-  var url = "http://127.0.0.1:5000/predict_home_price";
+  var url = ${backendBaseURL}/predict_home_price;
 
   $.ajax({
     url: url,
     type: "POST",
-    contentType: "application/json", // ✅ must be set
+    contentType: "application/json",
     data: JSON.stringify({
       total_sqft: sqft,
       bhk: bhk,
       bath: bath,
       location: location
     }),
-    success: function(data) {
+    success: function (data) {
       console.log("Estimated Price Received:", data.estimated_price);
       document.getElementById("uiEstimatedPrice").innerHTML =
         "<h2>" + data.estimated_price.toString() + " Lakh</h2>";
     },
-    error: function(err) {
+    error: function (err) {
       console.error("Request failed:", err);
     }
   });
@@ -49,9 +52,9 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
   console.log("Document loaded");
-  var url = "http://127.0.0.1:5000/get_location_name";
+  var url = ${backendBaseURL}/get_location_name;
 
-  $.get(url, function(data, status) {
+  $.get(url, function (data, status) {
     console.log("Got response for get_location_name request");
     if (data) {
       var locations = data.locations;
@@ -66,7 +69,7 @@ function onPageLoad() {
   });
 }
 
-// ✅ COMBINE event bindings on load
+// ✅ Load everything once DOM is ready
 window.onload = function () {
   onPageLoad();
   document.getElementById("estimateBtn").addEventListener("click", onClickedEstimatePrice);

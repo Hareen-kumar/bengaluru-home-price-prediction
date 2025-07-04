@@ -211,7 +211,7 @@ Hareen Kumar G
 
 🏫 University of Mysore
 
-📧 hareenkumar@gmail.com
+📧 hareen0306@gmail.com
 
 
   

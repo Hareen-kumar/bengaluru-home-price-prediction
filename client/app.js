@@ -27,7 +27,7 @@ function onClickedEstimatePrice() {
   var bath = getBathValue();
   var location = document.getElementById("uiLocations").value;
 
-  var url = ${backendBaseURL}/predict_home_price;
+  var url = ${'backendBaseURL}/predict_home_price';
 
   $.ajax({
     url: url,
@@ -52,7 +52,7 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
   console.log("Document loaded");
-  var url = ${backendBaseURL}/get_location_name;
+  var url = '${backendBaseURL}/get_location_name';
 
   $.get(url, function (data, status) {
     console.log("Got response for get_location_name request");

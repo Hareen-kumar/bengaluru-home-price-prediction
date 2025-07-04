@@ -3,8 +3,10 @@ from flask_cors import CORS
 import util as util  
 import os
 
-app = Flask(_name_, static_folder='client', static_url_path='')
+app = Flask(__name__, static_folder='client', static_url_path='')
 CORS(app)
+
+util.load_saved_artifacts()
 
 # 🟢 This is the missing route!
 @app.route('/')
@@ -44,7 +46,6 @@ def predict_home_price():
 
 application = app  # 🟢 Required for Render!
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     print("Starting Python Flask Server for Home Price Prediction...")
-    util.load_saved_artifacts()
     app.run()

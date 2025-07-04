@@ -1,11 +1,15 @@
-# server.py
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import util as util  
+import os
 
-app = Flask(__name__)
+app = Flask(_name_, static_folder='client', static_url_path='')
 CORS(app)
+
+# 🟢 This is the missing route!
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/get_location_name')
 def get_location_name():
@@ -14,7 +18,6 @@ def get_location_name():
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-
 
 @app.route('/predict_home_price', methods=['POST'])
 def predict_home_price():
@@ -39,10 +42,9 @@ def predict_home_price():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-if __name__ == "__main__":
+application = app  # 🟢 Required for Render!
+
+if _name_ == "_main_":
     print("Starting Python Flask Server for Home Price Prediction...")
     util.load_saved_artifacts()
     app.run()
-
-application = app
-
